@@ -45,10 +45,26 @@ import {
   darkTheme,
   shapes,
 } from '@backstage/theme';
+import { githubAuthApiRef, googleAuthApiRef } from '@backstage/core-plugin-api';
+import { SignInPage } from '@backstage/core-components';
 
 
 const app = createApp({
   apis,
+  components: {
+    SignInPage: props => (
+      <SignInPage
+        {...props}
+        auto
+        providers={['guest', {
+          id: 'google-auth-provider',
+          title: 'Google',
+          message: 'Sign in using Google',
+          apiRef: googleAuthApiRef,
+        }]}
+      />
+    ),
+  },
   themes: [{
     id: 'my-theme',
     title: 'Go Visit Theme',
